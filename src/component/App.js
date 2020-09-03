@@ -6,8 +6,9 @@ import Schedule from "./Schedule";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Container } from "@material-ui/core";
+import { Container, Button } from "@material-ui/core";
 import SetupSchedule from "./SetupSchedule";
+import ExportSchedule from "./ExportSchedule";
 
 export default function App() {
   const [currentTime, setCurrentTime] = useState(getCurrentTimeSeconds());
@@ -21,6 +22,7 @@ export default function App() {
     let schedule = JSON.parse(localStorage.schedule);
     return (
       <Container style={{ paddingTop: 20 }}>
+        {/* <ExportSchedule schedule={JSON.stringify(schedule)} /> */}
         <LargeTimer currentTime={currentTime} schedule={schedule} />
         <Schedule currentTime={currentTime} schedule={schedule} />
       </Container>

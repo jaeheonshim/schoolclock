@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import MenuItem from "@material-ui/core/MenuItem";
-import { MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider, KeyboardTimePicker } from "@material-ui/pickers";
 import { FormControl, InputLabel, Select } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import "date-fns";
@@ -18,6 +18,9 @@ function getDateFromSeconds(seconds) {
 }
 
 function dateToSeconds(date) {
+  if(!date) {
+    return 0;
+  }
   return date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 3600;
 }
 
@@ -56,14 +59,14 @@ export default function SetupSchedulePeriodItem(props) {
         value={name}
       />
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <TimePicker
+        <KeyboardTimePicker
           label="Start Time"
           onChange={(e) => {
             setStart(e);
           }}
           value={start}
         />
-        <TimePicker
+        <KeyboardTimePicker
           error={endError}
           label="End Time"
           onChange={(e) => {
