@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import List from "@material-ui/core/List";
 import SetupSchedulePeriodItem from "./SetupSchedulePeriodItem";
-import { IconButton } from "@material-ui/core";
+import { IconButton, TextField, Container, Box } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Button from "@material-ui/core/Button";
@@ -15,6 +15,8 @@ export default function SetupSchedule(props) {
   const [schedulePeriodItems, setSchedulePeriodItems] = useState([]);
   const [scheduleData, setScheduleData] = useState({});
   const [dialogOpen, setDialogOpen] = useState(true);
+  const [importTextAreaDisplay, setImportTextAreaDisplay] = useState("none");
+  const [scheduleImportData, setScheduleImportData] = useState();
 
   return (
     <Dialog open={dialogOpen} aria-labelledby="form-dialog-title">
@@ -68,6 +70,30 @@ export default function SetupSchedule(props) {
         >
           Save
         </Button>
+        <Button
+          color="primary"
+          onClick={() => {
+            setImportTextAreaDisplay("block");
+          }}
+        >
+          Import Schedule
+        </Button>
+        <Box display={importTextAreaDisplay}>
+          <TextField
+            label="Paste schedule export here"
+            multiline
+            variant="outlined"
+            fullWidth
+            onChange={(e) => {
+              setScheduleImportData(e.target.value)
+            }}
+          />
+          <Button color="primary" variant="contained" style={{marginTop: 10, float: "right"}} onClick={() => {
+            localStorage.schedule = atob(scheduleImportData);
+          }}>
+            Import
+          </Button>
+        </Box>
       </DialogContent>
     </Dialog>
   );

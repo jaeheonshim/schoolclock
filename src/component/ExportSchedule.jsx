@@ -8,7 +8,7 @@ import { TextField } from "@material-ui/core";
 
 export default function ExportSchedule(props) {
     return (
-        <Dialog open={true}>
+        <Dialog open={props.dialogOpen} onClose={props.onClose}>
             <DialogTitle>Setup Schedule</DialogTitle>
                 <DialogContent>
                     <DialogContentText>

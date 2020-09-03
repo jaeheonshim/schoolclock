@@ -13,6 +13,7 @@ import ExportSchedule from "./ExportSchedule";
 export default function App() {
   const [currentTime, setCurrentTime] = useState(getCurrentTimeSeconds());
   const [schedule, setSchedule] = useState(undefined);
+  const [openExportModal, setOpenExportModal] = useState(false);
 
   setInterval(() => {
     setCurrentTime(getCurrentTimeSeconds());
@@ -22,9 +23,18 @@ export default function App() {
     let schedule = JSON.parse(localStorage.schedule);
     return (
       <Container style={{ paddingTop: 20 }}>
-        {/* <ExportSchedule schedule={JSON.stringify(schedule)} /> */}
+        <ExportSchedule schedule={JSON.stringify(schedule)} dialogOpen={openExportModal} onClose={() => {
+          setOpenExportModal(false);
+        }} />
         <LargeTimer currentTime={currentTime} schedule={schedule} />
         <Schedule currentTime={currentTime} schedule={schedule} />
+        <Button variant="contained" color="primary" style={{position: "absolute", bottom: 25, right: 25}} onClick={
+          () => {
+            setOpenExportModal(true);
+          }
+        }>
+          Export Schedule
+        </Button>
       </Container>
     );
   } 
